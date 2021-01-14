@@ -1,0 +1,160 @@
+{% load static %}
+
+<header id="home" style="font: {% static 'ArcaMajora3-Bold 700.otf' %}" class="page-header text-center" data-type="anchor">
+        <!-- RD Navbar -->
+    <div class="rd-navbar-wrap">
+        <nav data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-static" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-sm-stick-up-offset="50px" data-lg-stick-up-offset="150px" class="rd-navbar">
+            <div class="rd-navbar-inner">
+                <!-- RD Navbar Panel -->
+                <div class="rd-navbar-panel">
+                    <div class="rd-navbar-panel-canvas"></div>
+
+                    <!-- RD Navbar Toggle -->
+                    <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                    <!-- END RD Navbar Toggle -->
+
+                    <!-- RD Navbar Cart Toggle -->
+                    <div class="rd-navbar-cart-wrap">
+                        <div class="rd-navbar-cart-floating">
+                            <button class="rd-navbar-cart-toggle"
+                                    data-rd-navbar-toggle=".rd-navbar-cart, .rd-navbar-cart-floating">
+                                <span></span>
+                            </button>
+                            {% if schopcart.exists %}
+                            <a href="{% url 'siparisver' %}" class="rd-navbar-cart-buy material-icons-card_membership">Ödeme Yapın</a>
+                            {% endif %}
+                            {% if not schopcart.exists %}
+                            <a href="{% url 'item:tshirt' %}" class="rd-navbar-cart-buy material-icons-card_membership">Alışverişe Başla</a>
+                            {% endif %}
+                        </div>
+                        <div class="rd-navbar-cart">
+                            {% if schopcart.exists %}
+                            <ul class="rd-navbar-cart-items">
+                              {% for item in schopcart %}
+                                <li>
+                                    <div class="rd-navbar-cart-item">
+                                        <div class="rd-navbar-cart-item__left">
+                                            <img style="height: 70px; width: 70px;" src="{{item.item.image.url}}"
+                                                 alt=""
+                                                 class="rd-navbar-cart-item__preview img-fluid"></div>
+
+                                        <div class="rd-navbar-cart-item__body">
+                                            <div class="rd-navbar-cart-item__title">{{item.item}}</div>
+                                            <div class="rd-navbar-cart-item__counter">{{item.quantity}} x {{item.fiyat}} = {{item.amount}}</div>
+                                        </div>
+                                        <a href="/order/deletefromcart/{{item.id}}" class="rd-navbar-cart-item__remove material-icons-delete"></a>
+                                    </div>
+                                </li>
+                              {% endfor %}
+                            </ul>
+                            <a href="{% url 'siparisver' %}" class="rd-navbar-cart-buy material-icons-card_membership">Ödeme Yapın</a>
+                            {% endif %}
+                            {% if not schopcart.exists %}
+                            <ul class="rd-navbar-cart-items">
+                                    <center><span class="text-center">Sepette Ürün Bulunmamaktadır.</span></center>       
+                            </ul>
+                            <a href="{% url 'item:tshirt' %}" class="rd-navbar-cart-buy material-icons-card_membership">Alışverişe Başla</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- END RD Navbar Cart Toggle -->
+
+                    <!-- RD Navbar Collapse Toggle -->
+                    <button class="rd-navbar-collapse-toggle" data-rd-navbar-toggle=".rd-navbar-collapse">
+                        <span></span>
+                    </button>
+                    <ul class="rd-navbar-collapse text-center" style="align-items: center;">
+                        <li>
+                            <a href="/shopcart/">Sepetim({{request.session.cart_items}})</a>
+                        </li>
+                        {% if not request.user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'accounts:register' %}">Kayıt Ol</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'accounts:login' %}">Giriş Yap</a>
+                        </li>
+                        {% endif %}
+                        {% if request.user.is_authenticated %}
+                            {% for g in user.groups.all %}
+                            {% if g.name == 'yönetim' %}
+                            <li>
+                                <a href="{% url 'siparisler' %}">Siparişler</a>
+                            </li>
+                            <li>
+                                <a href="#hesap">Hesap</a>
+                            </li>
+                            {% endif %}
+                            {% if g.name == 'costumer' %}
+                            <li>
+                                <a href="{% url 'siparislerim' %}">Siparişlerim</a>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                            <li>
+                                <a href="{% url 'accounts:logout' %}" onclick="return confirm('Çıkış Yapılacaktır. Emin Misiniz?')">Çıkış Yap</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                    <!-- END RD Navbar Collapse Toggle -->
+
+                    <!-- RD Navbar Brand -->
+                    <div class="rd-navbar-brand" style="margin-left: 32%;width: 120px; height: 140px;">
+                        <a href="{% url 'home' %}"><img src="{% static 'images/anasayfalogo.png' %}" alt="" class="brand"></a>
+                        <!--
+                        <a href="{% url 'home' %}" class="brand-name" style="font-weight: bold; font-size: 22px;">
+                        </a>
+                        -->
+                        <a id="mobil-logo" style="font-size: 1px; color: white; margin-left: -7px;">The PALMZ</a>
+                    </div>
+                    <!-- END RD Navbar Brand -->
+                </div>
+                <!-- END RD Navbar Panel -->
+            </div>
+            <div class="rd-navbar-outer" style="background: #000 !important;">
+                <div class="rd-navbar-inner" >
+
+
+                    <div class="rd-navbar-subpanel" style="margin: auto !important;">
+                        <div class="rd-navbar-nav-wrap">
+                            <!-- RD Navbar Nav -->
+                            <ul class="rd-navbar-nav" style="color: #fff;">
+                                <li class="active">
+                                    <a href="{% url 'home' %}">Anasayfa</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'item:tshirt' %}">T-Shirt</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'item:sweatshirt' %}">Sweatshirt</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'item:kapisonlu' %}">Hoodie</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'item:esofman' %}">Esofman</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'item:aksesuar' %}">Aksesuar</a>
+                                </li>
+                                
+                                {% for g in user.groups.all %}
+                                {% if g.name == 'yönetim' %}
+                                <li>
+                                    <a href="{% url 'item:create' %}">İlan Ekle</a>
+                                </li>
+                                </li>
+                                {% endif %}
+                                {% endfor %}
+
+
+                            </ul>
+                            <!-- END RD Navbar Nav -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- END RD Navbar -->
+</header>

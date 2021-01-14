@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+	<div class="container">
+		<div class="mt-5">
+	    	<small><a style="text-decoration: none; color:#000; font-weight: bold;" href="{% url 'home' %}">Anasaya</a> > <a style="font-weight:bold; text-decoration: none; color:#000;" href=""> Ödeme Tamamlama</a></small>
+		</div>
+			<div class="card mt-3">
+			  <h5 class="card-header text-center">Ödemeniz Alınmıştır</h5>
+			  <div class="card-body">
+			    <p class="card-text col-md-6">
+                  <p>Sayın {{ order.user.username }},</p><br/>
+                  <p>Sipariş oluşturma işleminiz başarışız olmuştur. Lütfen bilgilerinizi kontrol ediniz.</p><br/>
+                  <p>Dilerseniz <a href="{% url 'accounts:iletisim' %}">İletişim & Destek</a> için lütfen <a href="{% url 'accounts:iletisim' %}">tıklayın...</a></p>
+                  </p>
+			  </div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html style="box-sizing: border-box;font-family: sans-serif;line-height: 1.15;-webkit-text-size-adjust: 100%;-webkit-tap-highlight-color: transparent;">
+<head style="box-sizing: border-box;">
+
+</head>
+<body style="box-sizing: border-box;margin: 0;font-family: -apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #212529;text-align: left;background-color: #fff;min-width: 992px!important;">
+<h4 style="box-sizing: border-box;margin-top: 0;margin-bottom: .5rem;font-weight: 500;line-height: 1.2;font-size: 1.5rem;">ThePALMZ.com | Sipariş Alındı.</h4>
+<p style="box-sizing: border-box;margin-top: 0;margin-bottom: 1rem;orphans: 3;widows: 3;">' {{ordercode}} ' kodu ile siparişi başarıyla oluşturuldu. Sisteme Girerek Siparişi İnceleyiniz.</p>
+<p style="box-sizing: border-box;margin-top: 0;margin-bottom: 1rem;orphans: 3;widows: 3;">{{ ordercode }} Kodlu Sipariş Tutarı : {{ total }}</p>
+<p style="box-sizing: border-box;margin-top: 0;margin-bottom: 1rem;orphans: 3;widows: 3;"> </p>
+<p style="box-sizing: border-box;margin-top: 0;margin-bottom: 1rem;orphans: 3;widows: 3;"> </p>
+
+<table class="shopping-cart-table-card table table-hover" style="box-sizing: border-box;border-collapse: collapse!important;width: 100%;margin-bottom: 1rem;color: #212529;">
+<thead class="thead-dark" style="box-sizing: border-box;display: table-header-group;">
+    <tr style="box-sizing: border-box;page-break-inside: avoid;">
+        <th class="text-center" style="box-sizing: border-box;text-align: center!important;padding: .75rem;vertical-align: bottom;border-top: 1px solid #dee2e6;border-bottom: 2px solid #dee2e6;color: inherit;background-color: #fff!important;border-color: #dee2e6;">Ürün Başlığı</th>
+        <th class="text-center" style="box-sizing: border-box;text-align: center!important;padding: .75rem;vertical-align: bottom;border-top: 1px solid #dee2e6;border-bottom: 2px solid #dee2e6;color: inherit;background-color: #fff!important;border-color: #dee2e6;"> Ürün Bedeni</th>
+        <th class="text-center" style="box-sizing: border-box;text-align: center!important;padding: .75rem;vertical-align: bottom;border-top: 1px solid #dee2e6;border-bottom: 2px solid #dee2e6;color: inherit;background-color: #fff!important;border-color: #dee2e6;"> Ürün Fiyatı </th>
+        <th class="text-center" style="box-sizing: border-box;text-align: center!important;padding: .75rem;vertical-align: bottom;border-top: 1px solid #dee2e6;border-bottom: 2px solid #dee2e6;color: inherit;background-color: #fff!important;border-color: #dee2e6;"> Ürün Adeti </th>
+    </tr>
+</thead>
+<tbody style="box-sizing: border-box;">
+    {% for items in item %}
+        <tr style="box-sizing: border-box;page-break-inside: avoid;">
+            <td class="itembaslik text-center" style="box-sizing: border-box;padding: .75rem;vertical-align: top;border-top: 1px solid #dee2e6;text-align: center!important;background-color: #fff!important;"><strong style="box-sizing: border-box;font-weight: bolder;">{{ items.item.title }}</strong></td>
+            <td class="beden text-center" style="box-sizing: border-box;padding: .75rem;vertical-align: top;border-top: 1px solid #dee2e6;text-align: center!important;background-color: #fff!important;"><strong style="box-sizing: border-box;font-weight: bolder;">{{ items.beden }}</strong></td>
+            <td class="fiyat text-center" style="box-sizing: border-box;padding: .75rem;vertical-align: top;border-top: 1px solid #dee2e6;text-align: center!important;background-color: #fff!important;"><strong style="box-sizing: border-box;font-weight: bolder;">{{items.item.fiyat}} TL</strong><br style="box-sizing: border-box;"></td>
+            <td class="qty text-center" style="box-sizing: border-box;padding: .75rem;vertical-align: top;border-top: 1px solid #dee2e6;text-align: center!important;background-color: #fff!important;"><strong style="box-sizing: border-box;font-weight: bolder;">{{items.quantity}}</strong></td>
+        </tr>
+    {% endfor %}
+</tbody>
+<tfoot style="box-sizing: border-box;">
+    <tr style="box-sizing: border-box;page-break-inside: avoid;">
+        <th class="empty" colspan="3" style="box-sizing: border-box;text-align: inherit;padding: .75rem;vertical-align: top;border-top: 1px solid #dee2e6;background-color: #fff!important;"></th>
+        <th class="empty" colspan="3" style="box-sizing: border-box;text-align: inherit;padding: .75rem;vertical-align: top;border-top: 1px solid #dee2e6;background-color: #fff!important;"></th>
+        <th style="box-sizing: border-box;text-align: inherit;padding: .75rem;vertical-align: top;border-top: 1px solid #dee2e6;background-color: #fff!important;">Tutar</th>
+        <th colspan="2" class="total" style="box-sizing: border-box;text-align: inherit;padding: .75rem;vertical-align: top;border-top: 1px solid #dee2e6;background-color: #fff!important;">: {{total}}</th>
+    </tr>
+</tfoot>
+</table>
+
+</body>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.slim.min.js" style="box-sizing: border-box;"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" style="box-sizing: border-box;"></script>
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" style="box-sizing: border-box;"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" type="text/css" style="box-sizing: border-box;">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" type="text/css" style="box-sizing: border-box;">
+</html>

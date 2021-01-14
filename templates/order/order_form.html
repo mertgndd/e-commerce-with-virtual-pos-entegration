@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+	<form method="POST" enctype="multipart/form-data">
+	{% csrf_token %}
+	<div class="row mb-5 mt-5">
+		<div class="col-10 col-md-4 col-md-offset-3 col-sm-9 mt-1" style="margin: auto;">
+            <div class="director mb-3">
+            <small><a style="text-decoration: none; color:#000; font-weight: bold;" href="{% url 'home' %}">Anasaya</a> > <a style="font-weight:bold; text-decoration: none; color:#000;" href=""> Sipariş Tamamlama</a></small>
+            </div>
+			<div class="text-center" style="font-size: 24px;">Sipariş Formu</div>
+			{{ form|crispy}}
+		</div>
+		<div class="col-10 col-md-4 col-md-offset-3 col-sm-9 mt-1" style="margin: auto;">
+			<div class="text-center" style="font-family: Merienda;font-size: 24px;"> </div>
+			{{ form2|crispy}}
+			{% if schopcart.exists %}
+			<p><a href="{% url 'accounts:mesafeli-satis-sozlesmesi' %}" style="text-decoration: none;">Mesafeli Satış Sözleşmesi</a> & <a href="{% url 'accounts:sartlar-kosullar' %}" style="text-decoration: none;">Şartlar ve Koşulları </a>Okudum ve Onaylıyorum.</p>
+			<input type="submit" style="width: 220px; height: 40px;" onclick="return confirm('Mesafeli Satış Sözleşmesi & Şartlar Ve Koşulları Okumuş ve Onaylamış Olucaksınız. Devam Edilsin mi?')" class="btn btn-dark pull-right"  value="Siparişi Tamamla" >
+            <div class="pull-right">
+                <span class="developer col-12 col-md-12 mt-4 pull-right"><img style="height: 15px;" src="{% static 'images/bankacılık1x.png'  %}"></span>
+            </div>
+
+                <p>Ödeme Sistemi Entegrasyonu için çalışma yapıyoruz. En kısa sürede aktif olacak. Lütfen Kullanmayınız.</p>
+			{% endif %}
+			{% if not schopcart.exists %}
+			<a href="{% url 'item:tshirt' %}"><input type="button" style="width: 220px; height: 40px;" class="btn btn-dark pull-right"  value="Alışverişe Başla" ></a>
+			{% endif %}
+		</div>
+	</div>
+	<div class="container">
+		<div class="col-12 col-md-12 col-md-offset-3" style="margin: auto;">
+			<table class="shopping-cart-table table table-hover">
+				<thead class="thead">
+					<tr>
+						<th> </th>
+						<th>Ürün Adı</th>
+						<th class="text-center"> Fiyat </th>
+						<th class="text-center"> Adet </th>
+						<th class="text-center"> Toplam </th>
+						<th class="text-right"></th>
+
+					</tr>
+				</thead>
+				<tbody>
+					{% if schopcart.exists %}
+					{% for item in shopcart %}
+						<tr>
+							<td class="thumb"><a href="{{ item.item.get_absolute_url }}"><img style = "height: 120px ; width: 120px;" src="{{item.item.image.url}}"></a></td>
+							<td class="details">
+								<ul style="list-style: none;">
+									<li><a style="text-decoration: none; color: #000; text-transform: uppercase;"  href="{{ item.item.get_absolute_url }}">{{item.item}}</a></li>
+									<li><span>{{item.beden}} </span></li>
+									<li><span>Kategori : {{item.item.get_category_display}} </span></li>
+								</ul>
+							</td>
+							<td class="fiyat text-center"><strong>{{item.item.fiyat}} TL</strong><br></td>
+							<td class="qty text-center"><strong>{{item.quantity}}</strong></td>
+							<td class="total text-center"><strong>{{item.amount}}</strong></td>
+						</tr>
+					{% endfor %}
+					{% endif %}
+					{% if not schopcart.exists %}
+					<tr class="text-center">
+						<td></td>
+						<td></td>
+						<td>Sepetinizde Ürün Bulunmamaktadır.</td>
+						<td></td>	
+						<td></td>
+						<td></td>
+					</tr>
+					{% endif %}
+				</tbody>
+				<tfoot>
+					<tr>
+                        <th class="empty" colspan="3"></th>
+                        <th>Kargo</th>
+                        <th colspan="2">: Ücretsiz</th>
+                    </tr>
+                    <tr>
+                        <th class="empty" colspan="3"></th>
+                        <th>Tutar</th>
+                        <th colspan="2" class="total">: {{total}}</th>
+                    </tr>
+				</tfoot>
+			</table>
+			
+		</div>
+	</div>
+	</form>
+
+{% endblock %}

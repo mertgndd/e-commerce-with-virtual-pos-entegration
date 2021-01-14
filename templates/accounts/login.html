@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+
+	<div class="container mt-5 mb-5">
+		<div class="col-10 col-md-6 col-md-offset-3" style="margin: auto;">
+			<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+
+			<div class="text-center" style="font-size: 24px;">{{ title }}</div>
+			{{ form|crispy }}
+			<div class="btn-group col-12 col-md-12">
+			<input type="submit" class="btn btn-dark pull-left" style="height: 40px;" value="{{title}}" >
+            <a href="{% url 'accounts:register' %}" class="btn btn-warning pull-right" style = "height: 40px;" role="button" aria-pressed="true">Kayıt Ol</a>
+			</div>
+			</form>
+
+            <div class="d-flex flex-column text-right mt-2">
+                <a href="{% url 'password_reset' %}">Şifremi Unuttum?</a>
+            </div>
+			
+		</div>
+	</div>
+
+{% endblock %}

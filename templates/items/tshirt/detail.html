@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+  <style>
+    #featured{
+      cursor: pointer;
+      border: 2px solid black;
+    }
+    .thumbnail{
+      max-width: 180px;
+      max-height: 100px;
+      cursor: pointer;
+      opacity: 0.5;
+      margin: 5px;
+      border: 2px solid black;
+    }
+    .thumbnail:hover{
+      opacity: 1;
+    }
+    .active{
+      opacity: 1;
+    }
+    #slide-wrapper{
+      max-width: 500px;
+      display: flex;
+      min-height: 100px;
+      align-items: center;
+    }
+    #slider{
+      width: 440px;
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: hidden;
+    }
+    .arrow{
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      transition: .3s;
+    }
+    .arrow:hover{
+      opacity: .5;
+      width: 35px;
+      height: 35px;
+    }
+  </style>  
+	<section id="cards">
+    <div class="container mt-5">
+      <div class="director mt-4">
+        <small><a style="text-decoration: none; color:#000; font-weight: bold;" href="{% url 'home' %}">Anasaya</a> > <a style="font-weight:bold; text-decoration: none; color:#000;" href=""> {{ tshirt.get_category_display }}</a> > <a style="font-weight:bold; text-decoration: none; color:#000;" href="{{tshirt.get_absolute_url}}"> {{ tshirt.title}} </a></small>
+      </div>
+      <div class="row mb-3 mt-4">
+
+          <div class="col-md-4 mb-3">
+
+            <div id="content-wrapper">
+              <div class="column">
+                <img id="featured" data-zoom-image="{{ tshirt.image.url }}" style="height:500px" src="{{ tshirt.image.url }}" class="card-img-top img-fluid">
+
+
+                <div id="slide-wrapper" >
+                  <img id="slideLeft" class="arrow" src="{% static 'images/arrow-left.png' %}">
+                  <div id="slider">
+                    <img class="thumbnail active" src="{{ tshirt.image.url }}">
+                    {% if tshirt.image2.url != "" %}
+                    <img class="thumbnail" src="{{ tshirt.image2.url }}">
+                    {% else %}
+                    {% endif %}
+                    {% if tshirt.image3.url != "" %}
+                    <img class="thumbnail" src="{{ tshirt.image3.url }}">
+                    {% else %}
+                    {% endif %}
+                    {% if tshirt.image4.url != "" %}
+                    <img class="thumbnail" src="{{ tshirt.image3.url }}">
+                    {% else %}
+                    {% endif %}
+                  </div>
+                  <img id="slideRight" class="arrow" src="{% static 'images/arrow-right.png' %}">
+                </div>
+              </div>
+            </div>
+
+              <script type="text/javascript">
+                let thumbnails = document.getElementsByClassName('thumbnail')
+
+                let activeImages = document.getElementsByClassName('active')
+
+                for (var i=0; i<thumbnails.length; i++){
+
+                    thumbnails[i].addEventListener('mouseover', function(){
+                        
+                        if (activeImages.length > 0){
+                            activeImages[0].classList.remove('active')
+                        }
+                        
+                        this.classList.add('active')
+                        document.getElementById('featured').src = this.src
+                    })
+                }
+
+                let buttonRigth = document.getElementById('slideRight');
+                let buttonLeft = document.getElementById('slideLeft');
+
+                buttonLeft.addEventListener('click', function(){
+                  document.getElementById('slider').scrollLeft -= 180
+                })
+
+                buttonRigth.addEventListener('click', function(){
+                  document.getElementById('slider').scrollLeft += 180
+                })
+
+              </script>
+
+          </div>
+
+         	<div class="col-md-6 mb-3 ">
+         		<p class="marka"><b>Marka : </b> The PALMZ</p>
+         		<p class="title"><span style="font-size: 14px; font-weight: 600;">Ürün Adı :</span> <span style="font-size: 14px; font-weight: 400;">{{ tshirt.title }}</span></p>
+         		<p class="description"><span style="font-size: 14px; font-weight: 600;">Açıklama :</span> <span style="font-size: 14px; font-weight: 400;">{{tshirt.description}}</span></p>
+            <p class="description"><span style="font-size: 14px; font-weight: 600;">Kategori :</span><span style="font-size: 14px; font-weight: 400;"> {{ tshirt.get_category_display }}</span></p>
+            {% if tshirt.pre_fiyat %}
+            <span class="icon" style="font-size: 18px !important;">&#8378</span><span class="cost" style="font-size: 18px; font-weight: 600;"><del>{{tshirt.pre_fiyat}}</del></span>
+         		<span class="icon ml-3" style="font-size: 25px;">&#8378</span><span class="cost" style="font-size: 25px; font-weight: 700;">{{tshirt.fiyat}}</span>
+            {% else %}
+            <span class="icon" style="font-size: 25px;">&#8378</span><span class="cost" style="font-size: 25px; font-weight: 700;">{{tshirt.fiyat}}</span>
+            {% endif %}
+         		<hr/>
+         		
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li style="list-style: none;" {% if message.tags %} class="{{ message.tags }} alert alert-warning "{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <div class="item-btns" >
+              <form action="/order/addtocart/{{ tshirt.id }}" method="POST">
+                 {% csrf_token %}
+                 <div class="qty-input mb-3">
+                  <span class="text-uppercase">ADET : </span>
+                  <input name="quantity" class="input" type="number" min="1" max="25" value="1">
+                  <div class="inputfield mt-3">
+                    {% if tshirt.get_category_display == 'T-Shirt' %}
+                      <div class="custom_select">
+                          <label>BEDEN :</label>
+                          <select name="beden" id="selectBox" style="width: 110px; height: 35px; border: 2px solid black;" onchange="changeFunc();">
+                            <option value="beden seciniz" disabled="True" selected>Beden Seçiniz</option>
+                            <option value="S-M">S-M</option>
+                            <option value="L-XL">L-XL</option>
+                          </select>
+                      </div>
+                    {% endif %}
+                    {% if tshirt.get_category_display == 'Kapisonlu' %}
+                      <div class="custom_select">
+                          <label>BEDEN :</label>
+                          <select name="beden" id="selectBox" style="width: 110px; height: 35px; border: 2px solid black;" onchange="changeFunc();">
+                            <option value="beden seciniz" disabled="True" selected>Beden Seçiniz</option>
+                            <option value="S-M">S-M</option>
+                            <option value="L-XL">L-XL</option>
+                          </select>
+                      </div>
+                    {% endif %}
+                    {% if tshirt.get_category_display == 'Sweatshirt' %}
+                      <div class="custom_select">
+                          <label>BEDEN :</label>
+                          <select name="beden" id="selectBox" style="width: 110px; height: 35px; border: 2px solid black;" onchange="changeFunc();">
+                            <option value="beden seciniz" disabled="True" selected>Beden Seçiniz</option>
+                            <option value="S-M">S-M</option>
+                            <option value="L-XL">L-XL</option>
+                          </select>
+                      </div>
+                    {% endif %}
+                    {% if tshirt.get_category_display == 'Aksesuar' %}
+                      <div class="custom_select">
+                          <label>EBAT :</label>
+                          <select name="beden" id="selectBox" style="width: 110px; height: 35px; border: 2px solid black;" onchange="changeFunc();">
+                            <option value="Tek Ebat" selected>Tek Ebat</option>
+                          </select>
+                      </div>
+                    {% endif %}
+                    {% if tshirt.get_category_display == 'Esofman' %}
+                        <div class="custom_select">
+                          <label>BEDEN :</label>
+                          <select name="beden" id="selectBox" style="width: 110px; height: 35px; border: 2px solid black;" onchange="changeFunc();">
+                            <option value="beden seciniz" disabled="True" selected>Beden Seçiniz</option>
+                            <option value="S-M">S-M</option>
+                            <option value="L-XL">L-XL</option>
+                          </select>
+                      </div>
+                    {% endif %}
+                  </div>
+                 </div>           
+                <div>
+                  <div>
+                   <button type="submit" class="primary-btn add-to-cart" style="display: block; line-height: 46px; height: 46px; width: 33.3%; text-align: center; padding: 0!important; letter-spacing: .5px; font-weight: 600; color: #000; font-size: 16px; background: #616c70; border:none; "><i class="fa fa-shopping-cart"></i>Sepete Ekle</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+ 		</div>
+  </section>
+{% endblock %}

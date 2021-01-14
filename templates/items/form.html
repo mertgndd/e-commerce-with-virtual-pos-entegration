@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+	{% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }} alert alert-success "{% endif %}>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}	
+	<div class="container mb-5 mt-5">
+		<div class="col-md-6 col-md-offset-3" style="margin: auto;">
+			<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			<h1>{{ title }}</h1>
+			{{ form|crispy }}
+			<input type="submit" class="btn btn-primary" value="Ekle" >
+			</form>
+		</div>
+	</div>
+
+{% endblock %}

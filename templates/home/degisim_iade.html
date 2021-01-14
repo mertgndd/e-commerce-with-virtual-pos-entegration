@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+	
+	<div class="container">
+		<div class="mt-5">
+	    	<small><a style="text-decoration: none; color:#000; font-weight: bold;" href="{% url 'home' %}">Anasaya</a> > <a style="font-weight:bold; text-decoration: none; color:#000;" href=""> Değişim ve İade</a></small>
+		</div>
+			<div class="card mt-3">
+			  <h5 class="card-header text-center">Değişim ve İade Süreci</h5>
+			  <div class="card-body">
+			    <ul>
+		    	<li>14 gün içerisinde değişim / iade işlemi yapabilirsiniz.
+		    	</li>
+		    	<li class="mt-3">
+				Kargo şirketine teslim ettiğiniz paketler ortalama 1-5 iş günü içerisinde tarafımıza iletilmektedir. Hafta sonları maalesef işlem yapılamamaktadır.
+				</li>
+				<li class="mt-3">Paketiniz tarafımıza iletildikten 3 iş günü içerisinde işlemleriniz tamamlanarak tarafınıza bilgi maili otomatik olarak tarafınıza iletilecektir.</li>
+				<li class="mt-3">Değişim / iade olarak tarafımıza göndereceğiniz paketlerin kargo takip numarasını kargo şirketinden talep ederek değişim / iade sürecinizi takip edebilirsiniz.</li>
+				<li class="mt-3">Değişim işlemleriniz tamamlandıktan sonra tarafınıza yeni kargo takip numaranız mail olarak iletilecektir. Eğer tarafınıza mail iletilmez ise spam / önemsiz kutularınızı kontrol etmenizi öneririz.</li>
+				
+                </ul>
+			  </div>
+		</div>
+	</div>
+{% endblock %}

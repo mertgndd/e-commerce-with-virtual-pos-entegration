@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+	
+	<div class="container">
+		<div class="mt-5">
+	    	<small><a style="text-decoration: none; color:#000; font-weight: bold;" href="{% url 'home' %}">Anasaya</a> > <a style="font-weight:bold; text-decoration: none; color:#000;" href=""> İletişim</a></small>
+		</div>
+			<div class="card mt-3">
+			  <h5 class="card-header text-center">İletişim</h5>
+			  <div class="card-body">
+			    <p class="card-text col-md-6">
+                  <p>Merkez : Güven Mahallesi İnönü Caddesi No:38/602 Güngören İstanbul</p><br/>
+                  <p>İletişim Telefon Hattı: <a href="tel://+905343265801">0534 326 58 01</a></p><br/>
+                  <p>Mail Adresleri: info@thepalmz.com | destek@thepalmz.com</p>
+                  </p>
+			  </div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

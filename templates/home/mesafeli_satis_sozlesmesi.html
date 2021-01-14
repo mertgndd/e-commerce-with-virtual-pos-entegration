@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+	
+	<div class="container">
+		<div class="mt-5">
+	    	<small><a style="text-decoration: none; color:#000; font-weight: bold;" href="{% url 'home' %}">Anasaya</a> > <a style="font-weight:bold; text-decoration: none; color:#000;" href=""> Kargo Süreci</a></small>
+		</div>
+			<div class="card mt-3">
+			  <h5 class="card-header text-center"><b>Mesafeli Satış Sözleşmesi</b></h5>
+			  <div class="card-body">
+				<p><b>MADDE 1- TARAFLAR </b>
+				<ul style="list-style: none;">
+					<li>
+						<p>1.1 - Satıcı :</p>
+						Ünvanı : The PALMZ<br>
+						E-mail: info@thepalmz.com<br>
+						<br>
+					</li>
+					<li>
+						<p>1.2 - Alıcı :</p>
+						Adı/Soyadı/Ünvanı : {TESLIMATALICI}<br>
+						E-mail:{TESLIMATEPOSTA}<br>	
+						Telefon:{TESLIMATTELEFON}<br>
+						Adresi:{TESLIMATADRES}<br>
+					</li>
+				</ul>
+				</p>
+				
+				<p><b>MADDE 2- KONU </b>
+				<p>İşbu sözleşmenin konusu, ALICI'nın SATICI'ya ait bedayz.com internet sitesinden elektronik ortamda siparişini yaptığı aşağıda nitelikleri ve satış fiyatı belirtilen ürünün satışı ve teslimi ile ilgili olarak 4077 sayılı Tüketicilerin Korunması Hakkındaki Kanun ve Mesafeli Sözleşmeleri Uygulama Esas ve Usulleri Hakkında Yönetmelik hükümleri gereğince tarafların hak ve yükümlülüklerinin saptanmasıdır. </p>
+				</p>
+
+				<p><b>MADDE 3- SÖZLEŞME KONUSU ÜRÜN </b>
+				<ul style="list-style: none;">
+					<li>Tarih : {Tarih} </li>
+					<li> {URUNKALEMLERİ}</li>
+					<li class=" mt-2">
+					Ürün Adı &emsp; &emsp; &emsp; Adet   &emsp; &emsp; &emsp; Toplam Ürün Tutarı</li>
+					<li class=" mt-2">Ödeme Şekli : {ODEMETİPİ}</li>
+					<li class=" mt-2">Teslimat Adresi : {TESLİMATADRESİ}</li>	
+					<li class=" mt-2">{ÖDEMETİPİ} ile Toplam {ÖDENENTUTAR}</li>	
+				</ul>	
+				</p>
+
+				<p><b>MADDE 4- GENEL HÜKÜMLER</b>
+				<ul style="list-style: none;">
+					<li>4.1- ALICI, {FIRMAUNVAN} internet sitesinde sözleşme konusu ürünün temel nitelikleri, satış fiyatı ve ödeme şekli ile teslimata ilişkin ön bilgileri okuyup bilgi sahibi olduğunu ve elektronik ortamda gerekli teyidi verdiğini beyan eder. </li>
+					<li>4.2- Sözleşme konusu ürün, yasal 3 günlük süreyi aşmamak koşulu ile her bir ürün için ALICI'nın yerleşim yerinin uzaklığına bağlı olarak internet sitesinde ön bilgiler içinde açıklanan süre içinde ALICI veya gösterdiği adresteki kişi/kuruluşa teslim edilir. </li>
+					<li class=" mt-2">
+					4.3- Sözleşme konusu ürün, ALICI'dan başka bir kişi/kuruluşa teslim edilecek ise, teslim edilecek kişi/kuruluşun teslimatı kabul etmemesininden SATICI sorumlu tutulamaz.</li>
+					<li class=" mt-2">4.4- SATICI, sözleşme konusu ürünün sağlam, eksiksiz, siparişte belirtilen niteliklere uygun ve varsa garanti belgeleri ve kullanım klavuzları ile teslim edilmesinden sorumludur.</li>
+					<li class=" mt-2">4.5- Sözleşme konusu ürünün teslimatı için işbu sözleşmenin imzalı nüshasının SATICI'ya ulaştırılmış olması ve bedelinin ALICI'nın tercih ettiği ödeme şekli ile ödenmiş olması şarttır. Herhangi bir nedenle ürün bedeli ödenmez veya banka kayıtlarında iptal edilir ise, SATICI ürünün teslimi yükümlülüğünden kurtulmuş kabul edilir.</li>	
+					<li class=" mt-2">4.6- Ürünün tesliminden sonra ALICI'ya ait kredi kartının ALICI'nın kusurundan kaynaklanmayan bir şekilde yetkisiz kişilerce haksız veya hukuka aykırı olarak kullanılması nedeni ile ilgili banka veya finans kuruluşun ürün bedelini SATICI'ya ödememesi halinde, ALICI'nın kendisine teslim edilmiş olması kaydıyla ürünün 3 gün içinde SATICI'ya gönderilmesi zorunludur. Bu takdirde nakliye giderleri ALICI'ya aittir. </li>
+					<li class=" mt-2">4.7- SATICI mücbir sebepler veya nakliyeyi engelleyen hava muhalefeti, ulaşımın kesilmesi gibi olağanüstü durumlar nedeni ile sözleşme konusu ürünü süresi içinde teslim edemez ise, durumu ALICI'ya bildirmekle yükümlüdür. Bu takdirde ALICI siparişin iptal edilmesini, sözleşme konusu ürünün varsa emsali ile değiştirilmesini, ve/veya teslimat süresinin engelleyici durumun ortadan kalkmasına kadar ertelenmesi haklarından birini kullanabilir. ALICI'nın siparişi iptal etmesi halinde ödediği tutar 10 gün içinde kendisine nakten ve defaten ödenir. </li>
+					<li class=" mt-2">4.8- Garanti belgesi ile satılan ürünlerden olan veya olmayan ürünlerin arızalı veya bozuk olanlar, garanti şartları içinde gerekli onarımın yapılması için SATICI'ya gönderilebilir, bu takdirde kargo giderleri SATICI tarafından karşılanacaktır. </li>
+				</ul>
+				</p>
+
+				<p><b>MADDE 5- CAYMA HAKKI </b></p>
+				<p>
+				ALICI, sözleşme konusu ürürünün kendisine veya gösterdiği adresteki kişi/kuruluşa tesliminden itibaren 14 gün içinde cayma hakkına sahiptir. Cayma hakkının kullanılması için bu süre içinde SATICI'ya faks, email veya telefon ile bildirimde bulunulması ve ürünün 6. madde hükümleri çercevesinde kullanılmamış olması şarttır. Bu hakkın kullanılması halinde, 3. kişiye veya ALICI'ya teslim edilen ürünün SATICI'ya gönderildiğine ilişkin kargo teslim tutanağı örneği ile fatura aslının iadesi zorunludur. Bu belgelerin ulaşmasını takip eden 14 gün içinde ürün bedeli ALICI'ya iade edilir. Fatura aslı gönderilmez ise KDV ve varsa sair yasal yükümlülükler iade edilemez. Cayma hakkı nedeni ile iade edilen ürünün kargo bedeli SATICI tarafından karşılanır.<br><br>
+				<b>Genel iade/değişim şartları aşağıdaki gibidir;</b><br><br>
+				* Aksesuarlar (Küpe, Kolye, Şapka, Çorap, Snapback) ve CD&Albüm'de fırsat ve seçili (indirimli) ürünlerde iade ve değişim bulunmamaktadır.<br>
+				* Tekrar satılabilirlik özelliğini kaybetmiş (yıkanmış, parfüm sıkılmış, etiketi koparılmış) başka bir müşteri tarafından satın alınamayacak durumda olan ürünlerin iadesi kabul edilmemektedir.<br>
+				* İade ve Değişim işlemleri sipariş gününden en geç 14 GÜN İÇERİSİNDE gerçekleştirilmelidir. Aksi takdirde ürünün iade/değişimi kesinlikle kabul edilmez.<br>
+				* İade ve değişim işlemlerinde KARGO ÜCRETİ ALICIYA AİTTİR.<br>
+				* İade ve Değişim işlemleri sadece anlaşmalı kargo firması ile gerçekleştirilir. Başka kargo firmaları ile gönderilen siparişler  kabul edilmemektedir.<br>
+				</p>
+
+				<p><b>MADDE 6- CAYMA HAKKI KULLANILAMAYACAK ÜRÜNLER </b></p>
+				<p>Niteliği itibarıyla iade edilemeyecek ürünler, tek kullanımlık ürünler, kopyalanabilir yazılım ve programlar, hızlı bozulan veya son kullanım tarihi geçen ürünler için cayma hakkı kullanılamaz. Aşağıdaki ürünlerde cayma hakkının kullanılması, ürünün ambalajının açılmamış, bozulmamış ve ürünün kullanılmamış olması şartına bağlıdır.</b><br>
+					<ul style="list-style: none;">
+						<li>-Taşınabilir Bilgisayar (Orijinal işletim sitemi kurulduktan sonra iade alınmayacaktır.)</li>
+						<li>-Her türlü yazılım ve programlar </li>
+						<li>-DVD, VCD, CD ve kasetler </li>
+						<li>-Bilgisayar ve kırtasiye sarf malzemeleri (toner, kartuş, şerit v.b) </li>
+						<li>-Hür türlü kozmetik ürünleri </li>
+						<li>-Telefon kontör siparişleri </li>
+
+					</ul>
+
+				</p>
+				
+
+				<p><b>MADDE 7- YETKİLİ MAHKEME </b></p>
+				<p>İşbu sözleşmenin uygulanmasında, Sanayi ve Ticaret Bakanlığınca ilan edilen değere kadar Tüketici Hakem Heyetleri ile ALICI'nın veya SATICI'nın yerleşim yerindeki Tüketici Mahkemeleri yetkilidir.<br><br>
+				Siparişin gerçekleşmesi durumunda ALICI işbu sözleşmenin tüm koşullarını kabul etmiş sayılır.<br><br>
+				SATICI<br>
+				The PALMZ<br><br>
+				ALICI<br>
+				{TESLİMATALICI}
+
+				</p>
+
+			  </div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+<div class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-md-12">
+				<div class="order-summery clearfix">
+					{% if messages %}
+				    <ul class="messages">
+				        {% for message in messages %}
+				        <li style="list-style: none;" {% if message.tags %} class="{{ message.tags }} alert alert-warning "{% endif %}>{{ message }}</li>
+				        {% endfor %}
+				    </ul>
+				    {% endif %}
+                    <style>
+                        .btn:hover{
+                            background: red;
+                        }
+                    </style>
+                    <div class="director mt-4">
+                    <small><a style="text-decoration: none; color:#000; font-weight: bold;" href="{% url 'home' %}">Anasaya</a> > <a style="font-weight:bold; text-decoration: none; color:#000;" href=""> Sepetim</a></small>
+                    </div>
+                    <a href="{% url 'home' %}" class="btn pull-right mt-1 mb-2 text-left" style = "height: 40px;" role="button" aria-pressed="true">Alışverişe Devam Et</a>
+
+					<table class="shopping-cart-table-card table table-hover mt-5">
+
+						<tbody>
+							{% if schopcart.exists %}
+							{% for item in schopcart %}
+								<tr>
+									<td class="thumb"><a href="{{ item.item.get_absolute_url }}"><img style = "height: 120px ; width: 90px;" src="{{item.item.image.url}}"></a></td>
+									<td class="details">
+										<ul style="list-style: none;">
+											<li><a style="text-decoration: none; color: #000; text-transform: uppercase;"  href="{{ item.item.get_absolute_url }}">{{item.item}}</a></li>
+											<li><span>{{item.beden}} </span></li>
+											<li><span>{{item.item.get_category_display}} </span></li>
+										</ul>
+									</td>
+									<td class="fiyat text-center"><strong>{{item.item.fiyat}} TL</strong><br></td>
+									<td class="qty text-center"><strong>{{item.quantity}}</strong></td>
+									<td class="total text-center"><strong>{{item.amount}}</strong></td>
+									<td class="text-right"><a href="/order/deletefromcart/{{item.id}}" onclick="return confirm('Ürün Sepetinizden Silinecektir. Devam Edilsin mi?')" style = "height: 15px; width: 15px; text-decoration: none; color: inherit;" class="main-btn icon-btn"><i class="fa fa-trash fa-2x" style="font-weight: 100;" title="Ürünü Sepetten Kaldır" aria-hidden = "true"></i></a></td>
+								</tr>
+							{% endfor %}
+							{% endif %}
+							{% if not schopcart.exists %}
+								<tr class="text-center">
+									<td></td>
+									<td></td>
+									<td>Sepetinizde Ürün Bulunmamaktadır.</td>
+									<td></td>	
+									<td></td>
+									<td></td>
+								</tr>
+							{% endif %}
+						</tbody>
+						<tfoot>
+							<tr>
+                                <th class="empty" colspan="3"></th>
+                                <th>Kargo</th>
+                                <td colspan="2">: Ücretsiz</td>
+                            </tr>
+                            <tr>
+                                <th class="empty" colspan="3"></th>
+                                <th>Tutar</th>
+                                <th colspan="2" class="total">: {{total}}</th>
+                            </tr>
+						</tfoot>
+					</table>
+					{% if schopcart.exists %}
+                    <a href="{% url 'siparisver' %}" class="btn pull-right" style = "height: 40px; width: 35%;background: orange;" role="button" aria-pressed="true">Siparişi Tamamla</a>
+                    {% endif %}
+                    {% if not schopcart.exists %}
+                    <a href="{% url 'item:tshirt' %}" class="btn pull-right" style = "height: 40px; width: 35%;background: orange;" role="button" aria-pressed="true">Alışverişe Başla</a>
+                    {% endif %}
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+{% endblock %}

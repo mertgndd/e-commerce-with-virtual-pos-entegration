@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+<div class="section">
+		<div class="row">
+			<div class="col-12 col-md-12">
+				<div class="order-summery clearfix">
+					{% if messages %}
+				    <ul class="messages">
+				        {% for message in messages %}
+				        <li style="list-style: none" {% if message.tags %} class="{{ message.tags }} alert alert-warning "{% endif %}>{{ message }}</li>
+				        {% endfor %}
+				    </ul>
+				    {% endif %}
+                    <div class="director mt-4">
+                    <small><a style="text-decoration: none; color:#000; font-weight: bold;" href="{% url 'home' %}">Anasaya</a> > <a style="font-weight:bold; text-decoration: none; color:#000;" href=""> Siparişler</a></small>
+                    </div>
+					<table class="shopping-cart-table table table-hover col-12 mt-1">
+						<thead class="thead-dark">
+							<tr>
+								<th class="text-center">Sipariş Kodu</th>
+								<th class="text-center"> Sipariş Durumu </th>
+								<th class="text-center"> Email  </th>
+								<th class="text-center"> Telefon Numarası </th>
+								<th class="text-center"> Adres </th>
+								<th class="text-center"> Tutar </th>
+							</tr>
+						</thead>
+						<tbody>
+							{% if order_list.exists %}
+							{% for item in order_list %}
+								<tr>
+									<td class="details">
+										<a>{{item.code}}</a>
+									</td>
+									<td class="thumb"><a href="{{ order.get_update_url }}">{{ item.status }}</a></td>
+									<td class="qty text-center"><strong>{{item.email}}</strong></td>
+									<td class="total text-center"><strong>{{item.phone}}</strong></td>
+									<td class="text-center">{{item.address}}</td>
+									<td class="text-center">{{item.total}}</td>
+								</tr>
+							{% endfor %}
+                            {% endif %}
+                            {% if not order_list.exists %}
+                                <tr>
+									<td class="details">
+										<a href="http://127.0.0.1:8000/admin/order/order/">{{item.code}}</a>
+									</td>
+									<td class="thumb">Henüz Sipariş Bulunmamaktadır.</td>
+									<td class="fiyat text-center"><strong></strong><br></td>
+									<td class="qty text-center"><strong></strong></td>
+									<td class="total text-center"><strong></strong></td>
+									<td class="text-center"></td>
+									<td class="text-center"></td>
+								</tr>
+                            {% endif %}
+						</tbody>
+					</table>
+                    </div>
+				</div>
+			</div>
+	    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li style="list-style: none;" {% if message.tags %} "{{ message.tags }} alert alert-warning "{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+	<section id="cards" class="mt-4">
+            <div class="container">
+                <div>
+                    <small><a style="text-decoration: none; color:#000; font-weight: bold;" href="{% url 'home' %}">Anasaya</a> > <a style="font-weight:bold; text-decoration: none; color:#000;" href=""> Sweatshirt</a></small>
+                    <hr/>
+                </div>
+                <div class="row mb-3">
+                	{% for sweatshirt in sweatshirts %}
+                    <div class="col-6 col-md-3 mb-3">
+                    	<div class="card text-center">
+                            <a href="{{ sweatshirt.get_absolute_url }}"><img style="height:380px;" src="{{ sweatshirt.image.url }}" class="card-img-top img-fluid"></a>
+                            <div class="card-body">
+                                <h6 class="card-title text-left"><a style="color: black; text-decoration: none;" href="{{ sweatshirt.get_absolute_url }}">{{ sweatshirt.title }}</a></h6>
+                                <p class="card-description card-text-left" style="font-size: 15px">{{ sweatshirt.description }}</p>
+                                {% if sweatshirt.pre_fiyat %}
+                                <p class="card-info text-muted text-left"><span style="font-size: 14px;" class="mr-3"><del>{{ sweatshirt.pre_fiyat }} TL</del></span>{{ sweatshirt.fiyat }} TL</p>
+                                {% else %}
+                                <p class="card-info text-muted text-left"></span>{{ sweatshirt.fiyat }} TL</p>
+                                {% endif %}
+
+                                {% for g in user.groups.all %}
+                                {% if g.name == 'yönetim' %}
+                                <a href="{{ sweatshirt.get_update_url }}" class="btn btn-primary" style="float: left;" role="button">Güncelle</a>
+                                <a href="{{ sweatshirt.get_delete_url }}" class="btn btn-danger" style="float: left;" role="button">Sil</a>
+                                {% endif %}
+                                {% endfor %} 
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 mb-3" style="margin: auto;">
+                    <div class="pagination" style="margin: auto; font-size: 18px;">
+                        <span class="step-links" style="margin:auto;">
+                            {% if sweatshirts.has_previous %}
+                                <a href="?sayfa={{ sweatshirts.previous_page_number }}">Önceki</a>
+                            {% endif %}
+
+                            <span class="current">
+                                Sayfa {{ sweatshirts.number }} / {{ sweatshirts.paginator.num_pages }}.
+                            </span>
+
+                            {% if tshirts.has_next %}
+                                <a href="?sayfa={{ sweatshirts.next_page_number }}">Sonraki</a>
+                            {% endif %}
+
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+{% endblock %}

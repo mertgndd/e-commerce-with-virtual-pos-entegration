@@ -1,0 +1,41 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | ThePALMZ Admin Oturumu{% endblock %}
+
+{% block extrastyle %}
+    <style>
+    #header{
+        background: #000000;
+    }
+    .button, input[type=submit], input[type=button], .submit-row input, a.button{
+        background: #000000;
+    }
+    .module h2, .module caption, .inline-group h2 {
+        background: #00abff;
+    }
+    #branding h1, #branding h1 a:link, #branding h1 a:visited {
+        background: #000000;
+        color: #FFFFFF;
+    }
+    #header {
+        color: #FFFFFF;
+    }
+    a{
+        text-decoration: none !important;
+        color: inherit !important;
+    }
+    div.breadcrumbs {
+        color: #FFFFFF;
+        background: #00abff;
+    }
+    .object-tools a:link, .object-tools a:visited{
+        background: #6cff00;
+    }
+    </style>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">ThePALMZ Yönetim</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

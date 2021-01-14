@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li style="list-style: none;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+	<section id="cards" class="mt-4">
+            <div class="container">
+                <div>
+                    <small><a style="text-decoration: none; color:#000; font-weight: bold;" href="{% url 'home' %}">Anasayfa</a> > <a style="font-weight:bold; text-decoration: none; color:#000;" href=""> Aksesuar</a></small>
+                    <hr/>
+                </div>
+                <div class="row mb-3">
+                	{% for aksesuar in aksesuar %}
+                    <div class="col-6 col-md-3 mb-">
+                    	<div class="card text-center">
+                            <a href="{{ aksesuar.get_absolute_url }}"><img style="height:380px;" src="{{ aksesuar.image.url }}" class="card-img-top img-fluid"></a>
+                            <div class="card-body">
+                                <h6 class="card-title text-left"><a style="color: black; text-decoration: none;" href="{{ aksesuar.get_absolute_url }}">{{ aksesuar.title }}</a></h6>
+                                <p class="card-description text-left" style="font-size: 15px">{{ aksesuar.description }}</p>
+                                {% if aksesuar.pre_fiyat %}
+                                <p class="card-info text-muted text-left"><span style="font-size: 14px;" class="mr-3"><del>{{ aksesuar.pre_fiyat }} TL</del></span>{{ aksesuar.fiyat }} TL</p>
+                                {% else %}
+                                <p class="card-info text-muted text-left"></span>{{ aksesuar.fiyat }} TL</p>
+                                {% endif %}
+                                <!--<a href="#">Detay Sayfası</a>-->
+                                {% for g in user.groups.all %}
+                                {% if g.name == 'yönetim' %}
+                                <a href="{{ aksesuar.get_update_url }}" class="btn btn-primary" style="float: left;" role="button">Güncelle</a>
+                                <a href="{{ aksesuar.get_delete_url }}" class="btn btn-danger" style="float: left;" role="button">Sil</a>
+                                {% endif %}
+                                {% endfor %}   
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 mb-3" style="margin: auto;">
+                    <div class="pagination" style="margin auto; font-size: 18px;">
+                        <span class="step-links" style="margin:auto;">
+                            {% if aksesuar.has_previous %}
+                                <a href="?sayfa={{ aksesuar.previous_page_number }}">Önceki</a>
+                            {% endif %}
+
+                            <span class="current">
+                                Sayfa {{ aksesuar.number }} / {{ aksesuar.paginator.num_pages }}.
+                            </span>
+
+                            {% if ayakkabi.has_next %}
+                                <a href="?sayfa={{ aksesuar.next_page_number }}">Sonraki</a>
+                            {% endif %}
+
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+    </section>
+
+{% endblock %}
