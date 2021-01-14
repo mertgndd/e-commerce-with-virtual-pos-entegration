@@ -762,14 +762,13 @@
 }
 
 .rd-navbar-fixed .rd-navbar-panel-canvas {
-  position: fixed;
+  position: absolute;
   height: 56px;
   left: 0;
   top: 0;
   width: 100%;
-  background: #fff;
+  background: #546879;
   box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.25);
-  z-index: 16;
 }
 
 .rd-navbar-fixed .rd-navbar-toggle {
